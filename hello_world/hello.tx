@@ -1,0 +1,9 @@
+// is this a comment?
+/** this is another way to write comments */
+HelloWorldModel:
+    'hello' to_greet+=Who[',']
+;
+
+Who:
+    name = /[^,]*/
+;
