@@ -1,0 +1,18 @@
+// this is root rule (so must be first rule in grammar)
+// this indicates that our metamodel contains
+// one or more `entities`
+EntityModel:
+    entities+=Entity
+;
+
+// this defines the Entity model
+Entity:
+    'entity' name=ID '{'
+        properties+=Property
+    '}'
+;
+
+// this defines the Property attribute inside the Entity model
+Property:
+    name=ID ':' type=ID
+;
