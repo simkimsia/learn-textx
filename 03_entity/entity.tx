@@ -2,6 +2,8 @@
 // this indicates that our metamodel contains
 // one or more `entities`
 EntityModel:
+    // we specify our SimpleType here
+    simple_types *= SimpleType
     entities+=Entity
 ;
 
@@ -14,5 +16,19 @@ Entity:
 
 // this defines the Property attribute inside the Entity model
 Property:
-    name=ID ':' type=ID
+    // set the type to Type to have a Python reference
+    name=ID ':' type=[Type]
+;
+
+// because we now use Python reference for Property tpe
+// we now need this for integer, string, etc
+Type:
+    // so Type is either SimpleType or Entity instance
+    // this is also an abstract rule
+    SimpleType | Entity 
+;
+
+// define SimpleType
+SimpleType:
+    'type' name=ID
 ;

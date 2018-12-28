@@ -1,3 +1,6 @@
+type string
+type integer
+
 entity Person {
   name : string       
   address: Address   
