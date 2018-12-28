@@ -2,12 +2,13 @@ from textx import metamodel_from_file
 
 
 def move_command_processor(move_cmd):
-
-    # If steps is not given, set it do default 1 value.
+    # This is to set default step as 1 when not given
     if move_cmd.steps == 0:
         move_cmd.steps = 1
 
 robot_mm = metamodel_from_file('robot.tx')
+# need to register the move_command_processor 
+# AFTER instantiating the metamodel but BEFORE instantiating the model
 robot_mm.register_obj_processors({'MoveCommand': move_command_processor})
 robot_model = robot_mm.model_from_file('program.rbt')
 
