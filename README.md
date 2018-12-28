@@ -22,7 +22,8 @@
 `textx visualize hello.tx example.hello`
 - [x] `example.hello.dot` looks like this 
 ![example.hello.dot](../images/hello_world/02-example.hello.dot.png)
-- [x] finish the tutorial
+- [x] finish the hello-world tutorial
+- [x] finish the robot tutorial
 
 ## What I learned:
 
@@ -66,3 +67,41 @@ Value: ID | INT | ('(' Expression ')');
 ```
 
 Notice that `print` is a function in the toy language and it's deliberately created via `PrintStatement`
+
+### 3. How to set command with default values for arguments
+
+```
+begin
+    initial 3, 1
+    up 4
+    left 9
+    down
+    right 1
+end
+```
+
+the `down` command did not explicitly state the number of steps. so default is 1.
+
+to achieve this
+
+```
+def move_command_processor(move_cmd):
+    # This is to set default step as 1 when not given
+    if move_cmd.steps == 0:
+        move_cmd.steps = 1
+
+robot_mm = metamodel_from_file('robot.tx')
+# need to register the move_command_processor 
+# AFTER instantiating the metamodel but BEFORE instantiating the model
+robot_mm.register_obj_processors({'MoveCommand': move_command_processor})
+robot_model = robot_mm.model_from_file('program.rbt')
+```
+
+### 4. The different rule types in textX
+
+There are actually four kinds of rules in textX:
+
+1. Common rules (or just rules)
+2. Abstract rules
+3. Match rules
+4. Special rules (for commenting)
